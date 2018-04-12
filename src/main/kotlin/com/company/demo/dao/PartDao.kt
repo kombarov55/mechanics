@@ -1,4 +1,4 @@
-package com.company.dao
+package com.company.demo.dao
 
 import com.company.model.Part
 import com.mongodb.client.MongoDatabase
