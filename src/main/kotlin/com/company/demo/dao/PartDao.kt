@@ -1,11 +1,12 @@
 package com.company.demo.dao
 
-import com.company.model.Part
+import com.company.demo.model.Part
 import com.mongodb.client.MongoDatabase
 import org.json.JSONObject
 import org.springframework.stereotype.Repository
 
 import org.litote.kmongo.*
+import java.util.*
 
 
 @Repository
@@ -14,6 +15,7 @@ class PartDao(
 ) {
 
     fun save(part: Part) {
+        part._id = UUID.randomUUID().toString()
         db.getCollection<Part>().insertOne(part)
     }
 
