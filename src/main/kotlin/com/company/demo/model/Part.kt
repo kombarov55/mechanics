@@ -13,5 +13,6 @@ data class Part(
         val status: Int? = null,
         val shop: String? = null,
         val minOrder: Int? = null,
-        val measure: String? = null
+        val measure: String? = null,
+        val vin: String? = null
 )

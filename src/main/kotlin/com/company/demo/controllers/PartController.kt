@@ -4,9 +4,7 @@ import com.company.demo.dao.PartDao
 import com.company.demo.model.Part
 import com.google.gson.Gson
 import org.json.JSONObject
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController("/part")
 class PartController(
@@ -25,6 +23,13 @@ class PartController(
                 .put("id", part._id)
                 .toString()
 
+    }
+
+    @GetMapping
+    fun search(
+            @RequestParam("q") q: String
+    ): List<Part> {
+        return partDao.findByName(q)
     }
 
 }

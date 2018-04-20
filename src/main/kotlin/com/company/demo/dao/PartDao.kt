@@ -2,10 +2,9 @@ package com.company.demo.dao
 
 import com.company.demo.model.Part
 import com.mongodb.client.MongoDatabase
-import org.json.JSONObject
+import com.mongodb.client.model.Filters
+import org.litote.kmongo.getCollection
 import org.springframework.stereotype.Repository
-
-import org.litote.kmongo.*
 import java.util.*
 
 
@@ -19,8 +18,12 @@ class PartDao(
         db.getCollection<Part>().insertOne(part)
     }
 
-    fun find(jsonQ: JSONObject, size: Int = 10): List<Part> {
-        return db.getCollection<Part>().find(jsonQ.toString()).take(size)
+    fun findByName(name: String): List<Part> {
+        return db.getCollection<Part>()
+                .find(Filters.or(
+                        Filters.regex("name", "$name.*"),
+                        Filters.regex("vin", "$name.*")))
+                .take(20)
     }
 
 
