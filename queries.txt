@@ -1,4 +1,4 @@
 curl localhost:8080/shop -X POST -H "Content-Type: application/json" | json_pp
 curl localhost:8080/shop?name=a -H "Content-Type: application/json" | json_pp
 curl localhost:8080/part -X POST -d shop_id="5acfd693738a318488ceb578" -d part='{ artikul: "hz", name: "her", price: 150, matchingCars: [] }' | json_pp
-curl localhost:8080/part?q=Бам
+curl localhost:8080/part?q=bam
