@@ -11,11 +11,11 @@ class UserDao(
         private val db: MongoDatabase
 ) {
 
-    fun checkUser(user: User): Boolean {
+    fun checkUser(username: String, password: String): Boolean {
         return db.getCollection<User>()
                 .find(Filters.and(
-                        Filters.eq("username", user.username),
-                        Filters.eq("password", user.password)))
+                        Filters.eq("username", username),
+                        Filters.eq("password", password)))
                 .any()
     }
 

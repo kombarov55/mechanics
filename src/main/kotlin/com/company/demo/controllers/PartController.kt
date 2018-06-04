@@ -16,21 +16,28 @@ class PartController(
         private val gson: Gson
 ) {
 
+    @CrossOrigin(allowedHeaders = ["HEAD", "GET", "PUT", "POST", "DELETE", "PATCH"], origins = ["*"])
     @PostMapping("/part")
     fun addPart(
-            @RequestParam("part") part: String,
-            @RequestParam("user") user: String
+            @RequestBody json: String
     ): String {
-        val part = gson.fromJson(part, Part::class.java)
-        val user = gson.fromJson(user, User::class.java)
-        if (userDao.checkUser(user) == false) {
+
+        val obj = JSONObject(json)
+
+        val parts = gson.fromJson(obj.getJSONObject("part").toString(), Array<Part>::class.java)
+        val username = obj.getString("username")
+        val password = obj.getString("password")
+
+        if (userDao.checkUser(username, password) == false) {
             return JSONObject()
                     .put("error", "no such user")
                     .toString()
         } else {
-            partDao.save(part)
+            for (part in parts) {
+                partDao.save(part)
+            }
             return JSONObject()
-                    .put("id", part._id)
+                    .put("parts", parts)
                     .toString()
         }
     }
